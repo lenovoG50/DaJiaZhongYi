@@ -24,10 +24,11 @@ public class WelCome extends AppCompatActivity {
             R.drawable.point_red, R.drawable.point_nonred
     };
     ArrayList<View> list = new ArrayList<View>();
-    private ImageView pointView;
+
     private View view1;
     private View view2;
     private View view3;
+    private ImageView[] imageViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +37,11 @@ public class WelCome extends AppCompatActivity {
 
         //导入布局
         initView();
-
         list.add(view1);
         list.add(view2);
         list.add(view3);
+        imageViews = new ImageView[list.size()];
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new PagerAdapter() {
             @Override
@@ -89,12 +91,13 @@ public class WelCome extends AppCompatActivity {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.pointLinearLayout);
 
         for (int i = 0; i < list.size(); i++) {
-            pointView = new ImageView(this);
+            ImageView pointView = new ImageView(this);
             if (i == 0) {
                 pointView.setImageResource(point[0]);
             } else {
                 pointView.setImageResource(point[1]);
             }
+            pointView = imageViews[i];
             linearLayout.addView(pointView);
         }
     }
@@ -103,9 +106,9 @@ public class WelCome extends AppCompatActivity {
     private void selectPointColor(int position) {
         for (int i = 0; i < list.size(); i++) {
             if (i == position) {
-                pointView.setImageResource(point[0]);
+                imageViews[i].setImageResource(point[0]);
             } else {
-                pointView.setImageResource(point[1]);
+                imageViews[i].setImageResource(point[1]);
             }
         }
     }
